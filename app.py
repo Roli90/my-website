@@ -1,4 +1,5 @@
-from flask import Flask, render_template,request
+from flask import Flask, render_template
+import os
 
 app = Flask(__name__)
 
@@ -6,13 +7,6 @@ app = Flask(__name__)
 def home():
     return render_template("index.html")
 
-@app.route("/contact" , methods=["POST"])
-def contact():
-    name = request.form["name"]
-    email = request.form["email"]
-    message = request.form["message"]
-    print(name, email, message)
-    return "Message sent successfully"
-
 if __name__ == "__main__":
-    app.run(debug=True) 
+    port = int(os.environ.get("PORT",5000))
+    app.run(host= "0.0.0.0",port=port)
